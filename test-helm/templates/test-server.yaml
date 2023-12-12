@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-server-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-server
+  template:
+    metadata:
+      labels:
+        app: test-server
+    spec:
+      nodeSelector:
+        zone: eu-north-1b
+      containers:
+        - name: test-server
+          image: {{.Values.server-image}}
+          ports:
+            - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-server-svr
+spec:
+  type: ClusterIP
+  selector:
+    app: test-server
+  ports:
+    - name: test-server-serviceport
+      protocol: TCP
+      port: 80
+      targetPort: 5000

@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress-svr
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencryt-prod"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  tls:
+  - hosts:
+    - kops.basic-dev-ops-site-trial.co
+    secretName: test-tls
+  ingressClassName: nginx
+  rules:
+    - host: kops.basic-dev-ops-site-trial.co
+      http:
+        paths:
+          - path: /user
+            pathType: Prefix
+            backend:
+              service:
+                name: test-server-svr
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: test-client-svr
+                port:
+                  number: 80
