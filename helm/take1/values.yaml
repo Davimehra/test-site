@@ -1,9 +1,6 @@
-# Default values for test-helm.
+# Default values for take1.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-client_image: davimehra/test-client
-server_image: davimehra/test-server
 
 replicaCount: 1
 

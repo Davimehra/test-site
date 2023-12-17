@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: test-ingress-svr
   annotations:
-    cert-manager.io/cluster-issuer: "letsencryt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   tls:
