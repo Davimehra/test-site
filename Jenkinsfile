@@ -17,28 +17,31 @@ pipeline {
         stage('Build Client App Image') {
           steps {
             script {
-              dockerImage = docker.build clientregistry + ":V$BUILD_NUMBER"
+              dockerClientImage = docker.build clientregistry + ":V$BUILD_NUMBER"
             }
           }
         }
         stage('Build Server App Image') {
           steps {
             script {
-              dockerImage = docker.build serverregistry + ":V$BUILD_NUMBER"
+              dockerServerImage = docker.build serverregistry + ":V$BUILD_NUMBER"
             }
           }
         }
 
-        stage('Upload Image'){
+        stage('Upload Client and Server Image'){
           steps{
             script {
               docker.withRegistry('', registryCredential) {
-                dockerImage.push("V$BUILD_NUMBER")
-                dockerImage.push('latest')
+                dockerClientImage.push("V$BUILD_NUMBER")
+                dockerClientImage.push('latest')
+                dockerServerImage.push("V$BUILD_NUMBER")
+                dockerServerImage.push('latest')
               }
             }
           }
         }
+
 
         stage('Remove Unused docker image') {
           steps{
