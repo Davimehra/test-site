@@ -6,7 +6,7 @@ export function App() {
   async function onClick() {
     console.log("working Button");
     try {
-      await axios("http://kops.basic-dev-ops-site-trial.co/user", {
+      await axios("https://kops.basic-dev-ops-site-trial.co/user", {
         method: "post",
         data: { message: inputRef.current.value },
         contentType: "application/json",
@@ -20,7 +20,7 @@ export function App() {
   return (
     <>
       <input ref={inputRef} name="name" type="text" placeholder="Name"></input>
-      <button onClick={onClick}>Submit</button>
+      <button onClick={onClick}>Confirm Message</button>
       <div ref={ShowTextRef}></div>
     </>
   );
